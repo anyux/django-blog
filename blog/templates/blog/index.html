@@ -1,0 +1,47 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+    博客首页
+{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% for entry in depart_queryset %}
+                <h2><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h2>
+                <div>
+                    {% if entry.img %}
+                        <img src="{{ entry.img.url }}" alt="{{ entry.title }}" width="100">
+                    {% endif %}
+                </div>
+                <div>
+                    {% if entry.abstract %}
+                        <p>{{ entry.abstract }}</p>
+                    {% else %}
+                        <p>{{ entry.body | truncatechars:64 }}</p>
+                    {% endif %}
+
+                    <p>
+                        <span>作者:{{ entry.author }}</span>
+                        <span>发表时间:{{ entry.created_time }}</span>
+                        <span>浏览量:{{ entry.visiting }}</span>
+                    </p>
+                </div>
+            {% endfor %}
+            <hr>
+            <ul class="pagination">
+                {{ pager.page_html|safe }}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block js %}
+
+{% endblock %}
