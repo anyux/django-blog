@@ -4,6 +4,7 @@
     <data-source source="LOCAL" name="django-blog" uuid="0f922802-e81a-4619-82c6-6a898fec58b9">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
+      <auto-commit>false</auto-commit>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://150.109.98.213:3306/website</jdbc-url>
       <driver-properties>

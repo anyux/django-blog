@@ -39,7 +39,7 @@ class Entry(models.Model):
                                 verbose_name='博客摘要')
     visiting = models.PositiveIntegerField(default=0,verbose_name='博客访问量')
 
-    categroy = models.ManyToManyField(Category, verbose_name='博客分类')
+    category = models.ManyToManyField(Category, verbose_name='博客分类')
 
     tags = models.ManyToManyField(Tag, verbose_name='博客标签')
 

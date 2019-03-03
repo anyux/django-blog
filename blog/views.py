@@ -14,7 +14,6 @@ def index(request):
     total_count = models.Entry.objects.all().count()  #
     pager = Pagination(page, total_count, reverse('blog:blog_index'))
     depart_queryset = models.Entry.objects.all()[pager.start:pager.end]
-
     return render(request, 'blog/index.html', locals())
 
 def detail(request,blog_id):
