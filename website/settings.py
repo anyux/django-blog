@@ -83,11 +83,11 @@ pymysql.install_as_MySQLdb()
 DATABASES = {
 'default': {
 'ENGINE': 'django.db.backends.mysql', # 连接的数据库类型
-'HOST': '127.0.0.1', # 连接数据库的地址
+'HOST': '150.109.98.213', # 连接数据库的地址
 'PORT': 3306, # 端口
-'NAME': "website", # 数据库名称
+'NAME': "website", # 数据库名称django-blog
 'USER': 'root', # 用户
-'PASSWORD': '' # 密码
+'PASSWORD': 'Root@123' # 密码
 }
 }
 
@@ -136,3 +136,8 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\','/')
 MEDIA_URL = '/media/'
+
+
+#/admin
+#root
+#RootRoot
