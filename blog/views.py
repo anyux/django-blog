@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from . import models
 import markdown
 import pygments
 from blog.utils.pager import Pagination
-
+from django.db.models import Q
 # Create your views here.
 
 
@@ -38,6 +38,7 @@ def category(request,category_id):
     depart_queryset = entries[pager.start:pager.end]
     return render(request, 'blog/index.html', locals())
 
+
 def tag(request,tag_id):
     t = models.Tag.objects.get(id=tag_id)
     entries = models.Entry.objects.filter(tags=t)
@@ -45,4 +46,21 @@ def tag(request,tag_id):
     total_count = entries.count()  #
     pager = Pagination(page, total_count, reverse('blog:blog_index'))
     depart_queryset = entries[pager.start:pager.end]
+    return render(request, 'blog/index.html', locals())
+
+
+def search(request):
+
+    keyword = request.GET.get('keyword', None)
+    if not keyword or str(keyword) == '':
+        error_msg = "请输入关键字"
+        #跳转首页
+        return redirect('blog:blog_index')
+
+    entries = models.Entry.objects.filter(Q(title__icontains=keyword)
+                                          | Q(body__icontains=keyword)
+                                          | Q(abstract__icontains=keyword))
+    page = request.GET.get('page', 1)
+    total_count = entries.count()  #
+    depart_queryset = entries
     return render(request, 'blog/index.html', locals())
