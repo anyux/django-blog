@@ -15,6 +15,14 @@
                         <span>作者:{{ entry.author }}</span>
                         <span>发表时间:{{ entry.created_time }}</span>
                         <span>浏览量:{{ entry.visiting }}</span>
+                        分类：
+                        {% for category in entry.category.all %}
+                            &nbsp;&nbsp;<a href="{% url 'blog:blog_category' category.id %}">{{ category.name }}</a>
+                        {% endfor %}
+                        标签：
+                        {% for tag in entry.tags.all %}
+                            &nbsp;&nbsp;<a href="{% url 'blog:blog_tag' tag.id %}">{{ tag.name }}</a>
+                        {% endfor %}
                     </p>
                 </div>
                 <div>
