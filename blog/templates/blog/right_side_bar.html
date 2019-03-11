@@ -1,0 +1,30 @@
+{% load blog_tags %}
+<div class="row">
+    <div class="widget">
+        <h3>最新博客：</h3>
+        {% get_recent_entries as recent_entry_list %}
+
+        {% for entry in recent_entry_list %}
+            <div>
+                <a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a>
+                <div>{{ entry.author }} 发表于： {{ entry.created_time|date:"Y年m月d日" }}</div>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="widget">
+        <h3>推荐博客：</h3>
+        {% get_popular_entries as recent_popular_list %}
+
+        {% for popular in recent_popular_list %}
+            <div>
+                <a href="{{ popular.get_absolute_url }}">{{ popular.title }}</a>
+                <span class="badge" style="color: #fff; background-color: #00bfff">{{ popular.visiting }}</span>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
