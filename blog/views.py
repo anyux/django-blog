@@ -34,7 +34,7 @@ def category(request,category_id):
     entries = models.Entry.objects.filter(category=c)
     page = request.GET.get('page', 1)
     total_count = entries.count()  #
-    pager = Pagination(page, total_count, reverse('blog:blog_index'))
+    pager = Pagination(page, total_count, reverse('blog:blog_category',kwargs={"category_id":category_id}))
     depart_queryset = entries[pager.start:pager.end]
     return render(request, 'blog/index.html', locals())
 
@@ -44,7 +44,7 @@ def tag(request,tag_id):
     entries = models.Entry.objects.filter(tags=t)
     page = request.GET.get('page', 1)
     total_count = entries.count()  #
-    pager = Pagination(page, total_count, reverse('blog:blog_index'))
+    pager = Pagination(page, total_count, reverse('blog:blog_tag',kwargs={'tag_id':tag_id}))
     depart_queryset = entries[pager.start:pager.end]
     return render(request, 'blog/index.html', locals())
 
@@ -63,4 +63,13 @@ def search(request):
     page = request.GET.get('page', 1)
     total_count = entries.count()  #
     depart_queryset = entries
+    return render(request, 'blog/index.html', locals())
+
+
+def archives(request,year,month):
+    entris = models.Entry.objects.filter(created_time__year=year, created_time__month=month)
+    page = request.GET.get('page', 1)
+    total_count = entris.count()  #
+    pager = Pagination(page, total_count, reverse('blog:blog_archives', kwargs={'year':year,'month':month}))
+    depart_queryset = entris[pager.start:pager.end]
     return render(request, 'blog/index.html', locals())
