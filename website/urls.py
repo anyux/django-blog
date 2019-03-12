@@ -20,10 +20,20 @@ from django.conf import settings
 from django.conf.urls.static import static
 from blog.feed import LatestEntriesFeed
 from blog import views as blog_views
+from django.contrib.sitemaps import GenericSitemap
+from django.contrib.sitemaps.views import sitemap
+from blog.models import Entry
+
+info_dict = {
+    'queryset': Entry.objects.all(),
+    'date_field': 'modified_time'
+}
+
 urlpatterns = [
                   url(r'^admin/', admin.site.urls),
                   url(r'^blog/', include('blog.urls', namespace='blog')),
                   url(r'^latest/feed/$', LatestEntriesFeed(), name='rss'),
+                  url(r'^sitemap\.xml$', sitemap, {'sitemaps': {'blog': GenericSitemap(info_dict, priority=0.6)}},name='django.contraib.sitemaps.views.sitemap'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler403 = blog_views.permission_denied
