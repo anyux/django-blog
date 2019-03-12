@@ -18,8 +18,10 @@ from django.conf.urls import include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from blog.feed import LatestEntriesFeed
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^blog/', include('blog.urls',namespace='blog'))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  url(r'^admin/', admin.site.urls),
+                  url(r'^blog/', include('blog.urls', namespace='blog')),
+                  url(r'^latest/feed/$', LatestEntriesFeed(), name='rss'),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
